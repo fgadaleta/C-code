@@ -1,0 +1,1 @@
+cmd_/home/frag/programming/modules/memory/nothing.ko := ld -r -m elf_i386 -T /usr/src/linux-vp/scripts/module-common.lds --build-id -o /home/frag/programming/modules/memory/nothing.ko /home/frag/programming/modules/memory/nothing.o /home/frag/programming/modules/memory/nothing.mod.o

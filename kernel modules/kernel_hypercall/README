@@ -1,0 +1,15 @@
+From http://www.freesoftwaremagazine.com/node/1238/pdf?page=0%2C6
+
+# mknod /dev/memory c 60 0 
+# insmod memory.ko
+
+It’s also convenient to unprotect the device:
+# chmod 666 /dev/memory
+
+If everything went well, you will have a device /dev/memory to which you can write a string of characters and it will store the last one of them. You can perform the operation like this:
+$ echo -n abcdef >/dev/memory
+
+To check the content of the device you can use a simple cat:
+$ cat /dev/memory
+
+The stored character will not change until it is overwritten or the module is removed.
