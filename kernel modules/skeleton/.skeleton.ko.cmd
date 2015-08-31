@@ -1,0 +1,1 @@
+cmd_/home/frag/programming/modules/skeleton/skeleton.ko := ld -r -m elf_i386 -T /home/frag/kernel_src/linux-2.6/scripts/module-common.lds --build-id  -o /home/frag/programming/modules/skeleton/skeleton.ko /home/frag/programming/modules/skeleton/skeleton.o /home/frag/programming/modules/skeleton/skeleton.mod.o
