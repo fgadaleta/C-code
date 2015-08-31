@@ -1,0 +1,1 @@
+cmd_/home/frag/programming/modules/memory/iigp1.ko := ld -r -m elf_i386 -T /home/frag/kernel_src/linux-3.0/linux-2.6/scripts/module-common.lds --build-id  -o /home/frag/programming/modules/memory/iigp1.ko /home/frag/programming/modules/memory/iigp1.o /home/frag/programming/modules/memory/iigp1.mod.o

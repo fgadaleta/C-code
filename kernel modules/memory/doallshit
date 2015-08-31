@@ -1,0 +1,12 @@
+## Run this doallshit with user privileges
+
+#just in case 
+sudo rmmod trusted
+sudo rm /dev/trusted
+sudo mknod /dev/trusted c 60 0
+make
+sudo insmod trusted.ko
+sudo chmod 666 /dev/trusted
+
+#echo -n abcdef > /dev/trusted
+#cat /dev/trusted
