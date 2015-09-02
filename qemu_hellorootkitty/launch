@@ -1,0 +1,4 @@
+./i386-softmmu/./qemu-system-i386 -device ivshmem,size=16,msi=on,shm='shm' -drive file=/home/frag/virtual_machines/debian_vm_dev.img,if=virtio,cache=writeback -smp 2 -m 768 -vga std -enable-kvm
+
+
+# -device ivshmem,size=16,msi=on,shm='shm'
