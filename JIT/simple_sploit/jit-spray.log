@@ -1,0 +1,18 @@
+[mem] DRC reaped 95 objects (2 kb) freeing 4294967295 pages (200 kb) in 0.01 millis (0.0008 s)
+[mem] GC 0x0xb73d7020
+[mem] 	managed overhead  25 (103K) 51%
+[mem] 	mark increments 0
+[mem] 	sweeps 0 
+Overhead 172536 bytes (168 kb)
+[mem] ------- gross stats -----
+[mem] private 649 (2.5M) 100%
+[mem]	 mmgc 513 (2.0M) 79%
+[mem]		 unmanaged 22 (88K) 3%
+[mem]		 managed 50 (200K) 7%
+[mem]		 free 436 (1.7M) 67%
+[mem]	 other 136 (544K) 20%
+[mem] 	unmanaged overhead  9 (36K) 41%
+[mem] 	managed overhead  25 (103K) 51%
+[mem] number of collectors 1
+[mem] -------- gross stats end -----
+VerifyError: Error #1014

